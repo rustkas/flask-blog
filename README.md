@@ -10,7 +10,9 @@ git push -u origin main
 
 ## Remove folder from GitHub
 ```
-git rm -r --cached __pycache__
+# Удаляем из индекса (напрямую указываем путь к папке)
+git rm -r --cached .
+git add .
 git commit -m "Удалена папка __pycache__ из отслеживания"
 git push
 ```
