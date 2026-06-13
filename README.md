@@ -16,3 +16,10 @@ git add .
 git commit -m "Удалена папка __pycache__ из отслеживания"
 git push
 ```
+
+## Working with forms
+`pip install flask-wtf`
+`pip install email-validator`
+python
+import secrets
+secrets.token_hex(16)
