@@ -1,12 +1,17 @@
 """Models"""
 
 from datetime import datetime, timezone
+from flask import current_app
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from itsdangerous.exc import BadSignature, SignatureExpired
 from . import db, login_manager
 from flask_login import UserMixin
+
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
 
 class User(db.Model, UserMixin):
     """User"""
@@ -23,6 +28,19 @@ class User(db.Model, UserMixin):
         self.email = email
         self.password = password
         self.image_file = image_file
+
+    def get_reset_token(self, expires_sec=1800):
+        s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
+        return s.dumps({'user_id': self.id}).decode('utf-8')
+    
+    @staticmethod
+    def verify_reset_token(token):
+        s = Serializer(current_app.config["SECRET_KEY"])
+        try:
+            user_id = s.loads(token)["user_id"]
+        except (BadSignature, SignatureExpired):
+            return None
+        return User.query.get(user_id)
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"

@@ -153,3 +153,7 @@ Flask login
 `pip install flask-login`
 
 `pip install Pillow`
+
+Flask email
+
+`pip install flask-mail`
