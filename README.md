@@ -151,3 +151,5 @@ from flaskblog.models import User
 
 Flask login
 `pip install flask-login`
+
+`pip install Pillow`
