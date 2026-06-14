@@ -117,3 +117,37 @@ User('Corey', 'C@demo.com', 'default.jpg')
 ...    
 []
 ```
+
+Hash a password by Bcrypt
+pip install flask-bcrypt
+How to use Bcrypt:
+
+```
+python
+from flask_bcrypt import Bcrypt
+bcrypt = Bcrypt()
+bcrypt.generate_password_hash('testing')
+b'$2b$12$6oqNtb.ugpLkspSINJPkau8Pp1yAmDQYTYmGjfkodVpuqgWPU3Ywm'
+bcrypt.generate_password_hash('testing').decode('utf-8')
+'$2b$12$kXodvOc.mVUOQ4bOJ43vM.0GrivA1CROn3ssciyTmqCx8Bcql.2U2'
+hashed_pw = bcrypt.generate_password_hash('testing').decode('utf-8')
+bcrypt.check_password_hash(hashed_pw, 'password')
+bcrypt.check_password_hash(hashed_pw, 'testing')
+```
+
+Register
+CoreyMS
+CoreyMSchafer@gmail.com
+
+```
+from flaskblog import create_app, db
+from flaskblog.models import User
+>>> app = create_app()
+>>> with app.app_context():
+...    user = User.query.first()
+...    user
+
+```
+
+Flask login
+`pip install flask-login`
